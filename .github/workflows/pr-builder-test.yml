@@ -39,5 +39,5 @@ jobs:
         path: |
           ${{github.event.pull_request.base.repo.name}}/**/surefire-reports
           ${{github.event.pull_request.base.repo.name}}/diff.diff
-        product-is/**/surefire-reports
+          product-is/**/surefire-reports
         if-no-files-found: warn
