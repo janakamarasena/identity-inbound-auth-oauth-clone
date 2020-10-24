@@ -22,9 +22,10 @@ jobs:
       uses: actions/cache@v2
       with:
        path: ~/.m2
-       key: ${{ runner.os }}-pr-builder-${{ hashFiles('package-lock.json') }}
+       key: ${{ runner.os }}-pr-builder-${{ hashFiles('cache-key-file.xml') }}
        restore-keys: |
          ${{ runner.os }}-pr-builder-
+         ${{ runner.os }}-pr-builder
     - name: Run PR builder
       env:
         PR_LINK: ${{github.event.pull_request.html_url}}
