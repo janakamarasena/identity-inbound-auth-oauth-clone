@@ -39,12 +39,26 @@ jobs:
         path: |
           ${{github.event.pull_request.base.repo.name}}/diff.diff
         if-no-files-found: warn
+    - name: Repo mvn build log
+      uses: actions/upload-artifact@v2
+      with:
+        name: repo-mvn-build-log
+        path: |
+          ${{github.event.pull_request.base.repo.name}}/mvn-build.log
+        if-no-files-found: warn
     - name: Archive test results for repo
       uses: actions/upload-artifact@v2
       with:
-        name: builder-repo-surefire-report
+        name: repo-surefire-report
         path: |
           ${{github.event.pull_request.base.repo.name}}/**/surefire-reports
+        if-no-files-found: warn
+    - name: product-is mvn build log
+      uses: actions/upload-artifact@v2
+      with:
+        name: product-is-mvn-build-log
+        path: |
+          product-is/mvn-build.log
         if-no-files-found: warn
     - name: Archive test results for product-is
       uses: actions/upload-artifact@v2
