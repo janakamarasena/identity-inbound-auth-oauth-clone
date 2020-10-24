@@ -32,10 +32,24 @@ jobs:
       run: |
         wget https://gist.githubusercontent.com/janakamarasena/d84e5383805a352cd186121f2f491435/raw/db9f65f70715e85881f12310ffa6f3cc1ecf8d93/builder.sh
         bash builder.sh
-    - name: Archive test results
+    - name: Archive PR diff file
       uses: actions/upload-artifact@v2
       with:
-        name: repo-surefire-report
+        name: repo-pr-diff
+        path: |
+          ${{github.event.pull_request.base.repo.name}}/diff.diff
+        if-no-files-found: warn
+    - name: Archive test results for repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: builder-repo-surefire-report
+        path: |
+          ${{github.event.pull_request.base.repo.name}}/**/surefire-reports
+        if-no-files-found: warn
+    - name: Archive test results for product-is
+      uses: actions/upload-artifact@v2
+      with:
+        name: product-is-surefire-report
         path: |
           ${{github.event.pull_request.base.repo.name}}/**/surefire-reports
           ${{github.event.pull_request.base.repo.name}}/diff.diff
