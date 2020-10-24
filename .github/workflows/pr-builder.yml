@@ -16,8 +16,7 @@ jobs:
       run: |
         echo ${{github.event.pull_request.html_url}}
         wget -c https://raw.githubusercontent.com/wso2/product-is/master/pom.xml -O cache-key-file.xml
-    - name: Cache Maven packages
-      if: always()
+    - name: Cache maven packages
       id: cache-maven-m2
       uses: actions/cache@v2
       with:
