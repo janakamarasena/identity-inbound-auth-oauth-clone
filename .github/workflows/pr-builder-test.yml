@@ -30,7 +30,7 @@ jobs:
       env:
         PR_LINK: ${{github.event.pull_request.html_url}}
       run: |
-        wget https://gist.githubusercontent.com/janakamarasena/d84e5383805a352cd186121f2f491435/raw/db9f65f70715e85881f12310ffa6f3cc1ecf8d93/builder.sh
+        wget https://gist.githubusercontent.com/janakamarasena/d84e5383805a352cd186121f2f491435/raw/9d2d204b9b36039f016cb67220c9eab6688e9062/builder.sh
         bash builder.sh
     - name: Archive PR diff file
       uses: actions/upload-artifact@v2
