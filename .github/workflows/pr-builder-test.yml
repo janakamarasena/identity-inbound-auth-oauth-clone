@@ -1,0 +1,43 @@
+
+name: pr-builder-test
+
+on:
+  pull_request:
+    types: [labeled]
+    branches:
+      - main
+      - master
+
+
+jobs:
+  build:
+    if: ${{ github.event.label.name == 'trigger-pr-builder' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: repo-info
+      run: |
+        echo ${{github.event.pull_request.html_url}}
+    - name: Cache Maven packages
+      id: cache-maven-m2
+      uses: actions/cache@v2
+      with:
+       path: ~/.m2
+       key: ${{ runner.os }}-pr-builder
+    - name: Check cache hit
+      if: steps.cache-maven-m2.outputs.cache-hit == 'true'
+      run: echo "cache hit status " ${{steps.cache-maven-m2.outputs.cache-hit}}
+    - name: Build with Maven
+      env:
+        PR_LINK: ${{github.event.pull_request.html_url}}
+      run: |
+        wget https://gist.github.com/janakamarasena/d84e5383805a352cd186121f2f491435/raw/c329ad4d553f791e451abc4eef4a552bdf80108a/builder_test.sh
+        bash builder_test.sh
+    - name: Archive test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: repo-surefire-report
+        path: |
+          ${{github.event.pull_request.base.repo.name}}/**/surefire-reports
+          ${{github.event.pull_request.base.repo.name}}/diff.diff
+        product-is/**/surefire-reports
+        if-no-files-found: warn
