@@ -16,13 +16,15 @@ jobs:
       run: |
         echo ${{github.event.pull_request.html_url}}
         wget -c https://raw.githubusercontent.com/wso2/product-is/master/pom.xml -O cache-key-file.xml
-        echo "cache key hash " ${{ hashFiles('cache-key-file.xml') }}
     - name: Cache Maven packages
+      if: always()
       id: cache-maven-m2
       uses: actions/cache@v2
       with:
        path: ~/.m2
-       key: ${{ runner.os }}-pr-builder
+       key: ${{ runner.os }}-pr-builder-${{ hashFiles('package-lock.json') }}
+       restore-keys: |
+         ${{ runner.os }}-pr-builder-
     - name: Build with Maven
       env:
         PR_LINK: ${{github.event.pull_request.html_url}}
