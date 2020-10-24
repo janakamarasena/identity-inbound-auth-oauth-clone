@@ -28,6 +28,7 @@ jobs:
         wget https://raw.githubusercontent.com/janakamarasena/is-pr-builder-workflow/main/builder.sh
         bash builder.sh
     - name: Archive PR diff file
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: repo-pr-diff
@@ -35,6 +36,7 @@ jobs:
           ${{github.event.pull_request.base.repo.name}}/diff.diff
         if-no-files-found: warn
     - name: Archive repo mvn build log
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: repo-mvn-build-log
@@ -42,6 +44,7 @@ jobs:
           ${{github.event.pull_request.base.repo.name}}/mvn-build.log
         if-no-files-found: warn
     - name: Archive repo surefire reports
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: repo-surefire-report
@@ -49,6 +52,7 @@ jobs:
           ${{github.event.pull_request.base.repo.name}}/**/surefire-reports
         if-no-files-found: warn
     - name: Archive product-is mvn build log
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: product-is-mvn-build-log
@@ -56,6 +60,7 @@ jobs:
           product-is/mvn-build.log
         if-no-files-found: warn
     - name: Archive product-is surefire reports
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: product-is-surefire-report
