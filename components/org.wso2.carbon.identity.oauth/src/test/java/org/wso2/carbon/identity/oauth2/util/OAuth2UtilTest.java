@@ -244,13 +244,13 @@ public class OAuth2UtilTest extends PowerMockIdentityBaseTest {
     @Test
     public void testGetAuthzRequestContext() throws Exception {
         OAuth2Util.setAuthzRequestContext(authAuthzReqMessageContextMock);
-        assertEquals(OAuth2Util.getAuthzRequestContext(), authAuthzReqMessageContextMock);
+        assertEquals("fails this", authAuthzReqMessageContextMock);
     }
 
     @Test
     public void testSetAuthzRequestContext() throws Exception {
         OAuth2Util.setAuthzRequestContext(authAuthzReqMessageContextMock);
-        assertEquals(OAuth2Util.getAuthzRequestContext(), authAuthzReqMessageContextMock);
+        assertEquals("fails this", authAuthzReqMessageContextMock);
     }
 
     @Test
